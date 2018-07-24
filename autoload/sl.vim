@@ -106,7 +106,7 @@ endfor
 
 function! s:oepn_close(open) abort
     if a:open == 1
-        let g:old_cmdheight = &cmdheight
+        let s:old_cmdheight = &cmdheight
         if winheight(0) < 20+2
             let s:cheight = winheight(0)-2
         else
@@ -115,7 +115,7 @@ function! s:oepn_close(open) abort
 
         execute("set cmdheight=" . s:cheight)
     else
-        execute("set cmdheight=" . g:old_cmdheight)
+        execute("set cmdheight=" . s:old_cmdheight)
     endif
 endfunction
 
