@@ -107,7 +107,7 @@ endfor
 function! s:oepn_close(open) abort
     if a:open == 1
         let s:old_cmdheight = &cmdheight
-        if winheight(0) < 20+2
+        if &lines < 20+2
             let s:cheight = winheight(0)-2
         else
             let s:cheight = 20
@@ -141,7 +141,7 @@ function! sl#run_sl() abort
 
     call s:set_height()
 
-    let s:wwidth = winwidth(0)
+    let s:wwidth = &columns
     for i in range(1, s:wwidth+80)
         if i == 1
             echomsg "sl"
