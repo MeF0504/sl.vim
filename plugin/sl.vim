@@ -1,3 +1,3 @@
 
-command! SL call sl#run_sl()
+command! -nargs=? SL call sl#run_sl(<f-args>)
 
