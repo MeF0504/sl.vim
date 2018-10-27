@@ -123,7 +123,7 @@ function! s:set_back_width(backgd) abort
         for j in range(0, qu-1)
             let l:tmp_str .= a:backgd[i]
         endfor
-        let l:tmp_str .= a:backgd[i][:l:rem-s:win_minus]
+        let l:tmp_str .= a:backgd[i][:l:rem]
         let l:bg += [l:tmp_str]
     endfor
     return l:bg
@@ -179,7 +179,7 @@ function! s:run_sl_main() abort
     
     " prepare spacer for height bias.
     let l:tmp_space = ""
-    for k in range(0, s:wwidth-s:win_minus)
+    for k in range(0, s:wwidth)
         let l:tmp_space .= " "
     endfor
 
@@ -191,13 +191,13 @@ function! s:run_sl_main() abort
             let l:space = ""
             let l:rem = 0
             " add space.
-            if i < s:wwidth-s:win_minus
-                for j in range(1, s:wwidth-s:win_minus-i)
+            if i < s:wwidth
+                for j in range(1, s:wwidth-i)
                     let l:space .= " "
                 endfor
             " reach left end.
             else
-                let l:rem = i-(s:wwidth-s:win_minus)
+                let l:rem = i-(s:wwidth)
             endif
             "prepare sl string.
             if s:no_smoke == 0
@@ -214,7 +214,7 @@ function! s:run_sl_main() abort
                 endfor
             endif
             for k in range(0, s:sl_height-1)
-                let l:add_str = (l:space . l:sl_all[k])[l:rem:s:wwidth-s:win_minus+l:rem]
+                let l:add_str = (l:space . l:sl_all[k])[l:rem:s:wwidth+l:rem]
                 let l:print_sl += [ l:add_str ]
             endfor
             "print sl.
@@ -239,11 +239,11 @@ function! sl#run_sl(...) abort
         return
     endif
 
-    let s:wwidth = &columns
-    " set option information.
-
     " width bias.
     let s:win_minus = 3
+
+    let s:wwidth = &columns - s:win_minus
+    " set option information.
 
     call s:options(a:)
 
